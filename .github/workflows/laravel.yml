@@ -3,11 +3,12 @@ name: Laravel
 on:
   push:
     branches: [ "main" ]
-    paths: ['src/backend']
   pull_request:
     branches: [ "main" ]
-    paths: ['src/backend']
-
+  
+defaults:
+ run:
+  working-directory: ./src/backend
 jobs:
   laravel-tests:
 
@@ -18,10 +19,6 @@ jobs:
       with:
         php-version: '8.0'
     - uses: actions/checkout@v3
-    - name: Move to src project
-      run: cd /home/runner/work/presence-backend/presence-backend/src/backend
-    - name: Look at dir project
-      run: pwd
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
