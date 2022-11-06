@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+
+ # workspace
+  workspace:
+    build:
+      context: .
+      dockerfile: ./docker/php-fpm/Dockerfile
+    container_name: workspace
+    restart: always
+    volumes:
+      - ./src:/var/www 
+    networks:
+      - presence_backend
+    working_dir: /var/www
+    env_file: docker.env
+
+  # server
+  server:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    container_name: server
+    restart: always
+    ports:
+      - 8000:80
+    volumes:
+      # - ./src/app-auth:/var/www/app-auth
+      - ./docker/nginx/app.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - presence_backend
+    working_dir: /var/www
+
+  # database
+  database:
+    image: mysql:8
+    container_name: app-database
+    restart: on-failure
+    volumes:
+      - presence_db:/var/lib/mysql
+    networks:
+      - presence_backend
+    env_file: docker.env
+    
+  # phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: app-phpmyadmin
+    restart: on-failure
+    ports:
+      - 9090:80
+    networks:
+      - presence_backend
+    depends_on:
+      - database
+    env_file: docker.env
+
+networks:
+  presence_backend:
+
+volumes:
+  presence_db:
