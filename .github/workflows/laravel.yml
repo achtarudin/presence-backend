@@ -19,7 +19,7 @@ jobs:
     - name: Move to src project
       run: cd src/backend
     - name: Look at dir project
-      run: echo pwd
+      run: pwd
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
