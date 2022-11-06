@@ -33,9 +33,9 @@ services:
     working_dir: /var/www/html
 
   # database
-  database:
-    image: mysql:8
-    container_name: app-database
+  database_app:
+    image: mysql:8.0.31
+    container_name: database_app
     restart: on-failure
     volumes:
       - presence_db:/var/lib/mysql
@@ -46,14 +46,14 @@ services:
   # phpmyadmin
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: app-phpmyadmin
+    container_name: phpmyadmin
     restart: on-failure
     ports:
       - 9090:80
     networks:
       - presence_backend
     depends_on:
-      - database
+      - database_app
     env_file: docker.env
 
 networks:
