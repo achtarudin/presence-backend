@@ -19,10 +19,11 @@ class GithubActionController extends Controller
 
         $process = new Process(['./deploy.sh']);
         $process->setWorkingDirectory($root_path);
-            $process->run(function ($type, $buffer) {
-                echo $buffer;
+        $process->run(function ($type, $buffer) {
+            echo '<br>';
+            echo $buffer;
         });
-        
+
         // chdir($root_path);
         // shell_exec('./deploy.sh');
         // dd(shell_exec('./deploy.sh'));  // ATTEMPT RUN SCRIPT

@@ -8,6 +8,7 @@
         "axios": "^1.1.2",
         "laravel-vite-plugin": "^0.6.0",
         "lodash": "^4.17.19",
+        "materialize-css": "^1.0.0-rc.2",
         "postcss": "^8.1.14",
         "vite": "^3.0.0"
     }
