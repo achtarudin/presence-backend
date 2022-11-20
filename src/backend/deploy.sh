@@ -1,8 +1,5 @@
 #!/bin/sh
 # activate maintenance mode
-
-pwd
-
 php artisan down
 # update source code
 git pull
